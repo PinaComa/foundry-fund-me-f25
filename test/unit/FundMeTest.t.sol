@@ -120,8 +120,8 @@ contract FundMeTest is Test {
             hoax(address(i), SEND_VALUE); // Mock address(i) with ETH balance and simulate it as msg.sender
 
             fundMe.fund{value: SEND_VALUE}(); // Each mocked funder sends SEND_VALUE ETH to the contract
-            //fund the fundMe
-            /* log funders and funds
+                //fund the fundMe
+                /* log funders and funds
             console.log("Funder:", address(i));
             console.log("Amount of fund:", SEND_VALUE);
             console.log("fundMe Balance:", address(fundMe).balance); */
@@ -147,12 +147,9 @@ contract FundMeTest is Test {
         assert(address(fundMe).balance == 0); // Verify the contract balance is now 0, since all funds were withdrawn
         // Step 5: Assert the owner's balance increased by the amount withdrawn
 
-        assert(
-            startingFundMeBalance + startingOwnerBalance ==
-                fundMe.getOwner().balance
-        ); // Owner's balance should increase by the total contract balance
-        // Step 6: Verify that the total funds contributed match the owner's balance gain
-        /* assert(
+        assert(startingFundMeBalance + startingOwnerBalance == fundMe.getOwner().balance); // Owner's balance should increase by the total contract balance
+            // Step 6: Verify that the total funds contributed match the owner's balance gain
+            /* assert(
             (numberOfFunders + 1) * SEND_VALUE ==
                 fundMe.getOwner().balance - startingOwnerBalance
         ); */

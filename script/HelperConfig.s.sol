@@ -1,19 +1,19 @@
-/** 
- * Currently, running tests locally or on different chains is inflexible. 
+/**
+ * Currently, running tests locally or on different chains is inflexible.
  * Your contracts depend on Sepolia’s hardcoded priceFeed address.
  *  This approach:
-    -Relies on forked chains: Tests fail if you don’t fork Sepolia.
-    -Lacks flexibility: It’s hard to switch to other chains without rewriting code or hardcoding new addresses.
-    -Complicates testing: Running all tests locally is inefficient or error-prone.
-    The Goal:
-    -Run all tests locally on Anvil (a Foundry-powered blockchain emulator) 
-        without requiring a forked chain like Sepolia.
-    -Use a mock contract on Anvil to simulate the behavior 
-        of the priceFeed contract instead of interacting with live blockchains.
-    -Make deployment and testing modular by dynamically configuring addresses 
-        (e.g., priceFeed) based on the blockchain being used.
- * 
- * 
+ *     -Relies on forked chains: Tests fail if you don’t fork Sepolia.
+ *     -Lacks flexibility: It’s hard to switch to other chains without rewriting code or hardcoding new addresses.
+ *     -Complicates testing: Running all tests locally is inefficient or error-prone.
+ *     The Goal:
+ *     -Run all tests locally on Anvil (a Foundry-powered blockchain emulator)
+ *         without requiring a forked chain like Sepolia.
+ *     -Use a mock contract on Anvil to simulate the behavior
+ *         of the priceFeed contract instead of interacting with live blockchains.
+ *     -Make deployment and testing modular by dynamically configuring addresses
+ *         (e.g., priceFeed) based on the blockchain being used.
+ *
+ *
  */
 
 // SPDX-License-Identifier: MIT
@@ -46,9 +46,7 @@ contract HelperConfig is Script {
     }
 
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
-        NetworkConfig memory sepoliaConfig = NetworkConfig({
-            priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306
-        });
+        NetworkConfig memory sepoliaConfig = NetworkConfig({priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306});
         return sepoliaConfig;
     }
 
@@ -78,15 +76,10 @@ contract HelperConfig is Script {
         // return NetworkConfig({
         //     priceFeed: address(mockPriceFeed)
         // });
-        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(
-            DECIMALS,
-            INITIAL_PRICE
-        );
+        MockV3Aggregator mockPriceFeed = new MockV3Aggregator(DECIMALS, INITIAL_PRICE);
         vm.stopBroadcast();
 
-        NetworkConfig memory anvilConfig = NetworkConfig({
-            priceFeed: address(mockPriceFeed)
-        });
+        NetworkConfig memory anvilConfig = NetworkConfig({priceFeed: address(mockPriceFeed)});
         return anvilConfig;
     }
 }
