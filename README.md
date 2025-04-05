@@ -176,4 +176,4 @@ Run the deployment script securely using environment variables, rather than dire
 ```bash
 forge script script/DeploySimpleStorage.s.sol --rpc-url $RPC_URL --broadcast --private-key $PRIVATE_KEY 
 ```
-Using this approach ensures better security by keeping sensitive information like private keys out of the command line and your repository.
+Using this approach ensures better security by keeping sensitive information like private keys out of the command line and your repository.# foundry-fund-me-f25
