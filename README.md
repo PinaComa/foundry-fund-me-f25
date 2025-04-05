@@ -105,37 +105,75 @@ This versatility and efficiency make Foundry an excellent tool for Solidity deve
 Ensure Foundry is installed. You can install Foundry by running:
 ```bash
 curl -L https://foundry.paradigm.xyz | bash
-Source Foundry:
-bash
+``` 
+follow what is written. then 
+```bash
 foundryup
+```
+
 Deployment Steps
 1. Initialize the Project
 Use forge init to initialize the project. If the directory is not empty, add the --force flag:
-bash
+```bash
 forge init --force
+```
 2. Create a Smart Contract File
 Create a new file under the src directory (e.g., SC.sol).
 3. Compile the Contract
 Run the following to build or compile your contract:
-bash
+```bash
 forge build
 or
-bash
 forge compile
+```
 4. Deploy the Contract Locally
 Use forge create to deploy your smart contract:
-bash
+```bash
 forge create XXXSmartContractNameXXX
+```
 5. Deploy On-Chain
 Run Anvil, retrieve the private key and URL info.
 Open a new terminal and deploy using the following command:
-bash
+```bash
 forge create SimpleStorage --rpc-url http://127.0.0.1:8545 --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 --interactive
+```
 6. Deploy Using a Script
 Use the following to deploy your contract with a script:
-bash
+```bash
 forge script script/DeploySimpleStorage.s.sol --rpc-url http://127.0.0.1:8545 --broadcast --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
 Additional Tips
 To convert a hexadecimal gas value to decimal, use:
-bash
+```bash
 cast --to-base 0xb296a dec
+```
+
+# Secure Deployment: Using Environment Variables for Private Key
+
+## Avoid Writing Your Private Key Directly on the Command Line
+
+### Step 1: Create a `.env` File
+Create a new `.env` file in your project directory and add the following lines:
+```
+PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+RPC_URL=http://127.0.0.1:8545
+```
+### Step 2: Add .env to .gitignore
+Make sure to include .env in your .gitignore file to prevent sensitive information from being uploaded to your repository:
+.env
+### Step 3: Source the .env File
+Source the .env file in your terminal:
+```bash
+source .env
+```
+### Step 4: Verify Environment Variables
+Use the echo command to verify the variables:
+```bash
+echo $PRIVATE_KEY
+```
+### Step 5: Deploy Using Environment Variables
+Run the deployment script securely using environment variables, rather than directly specifying the private key:
+```bash
+forge script script/DeploySimpleStorage.s.sol --rpc-url $RPC_URL --broadcast --private-key $PRIVATE_KEY 
+```
+Using this approach ensures better security by keeping sensitive information like private keys out of the command line and your repository.
