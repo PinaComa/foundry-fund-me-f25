@@ -176,5 +176,27 @@ Run the deployment script securely using environment variables, rather than dire
 ```bash
 forge script script/DeploySimpleStorage.s.sol --rpc-url $RPC_URL --broadcast --private-key $PRIVATE_KEY 
 ```
-Using this approach ensures better security by keeping sensitive information like private keys out of the command line and your repository.# foundry-fund-me-f25
+Using this approach ensures better security by keeping sensitive information like private keys out of the command line and your repository. 
 # foundry-fund-me-f25
+
+
+# Testing and Deployment: Secure Practices
+
+## For Testing Purposes
+Use a `$PRIVATE_KEY` stored in a `.env` file, as long as you ensure that the `.env` file is **not exposed** anywhere.
+
+## For Real Money Deployments
+When handling real funds, it is highly recommended to use the `--interactive` option or a keystore file protected by a password.
+
+### Importing a Keystore File
+Use the following command to import a keystore file interactively:
+```bash
+cast wallet import PiCoDC_FoundryTest --interactive
+```
+
+#### Example Interaction:
+```Enter private key: 
+Enter password: 
+`PiCoDC_FoundryTest` keystore was saved successfully. 
+Address: 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266
+```
